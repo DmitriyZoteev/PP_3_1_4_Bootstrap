@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Таблица пользователей</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<header class="d-flex flex-wrap justify-content-center mb-4 p-2 bg-dark border-bottom">
+    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="nav-link fw-bold text-white" th:utext="${currentUser.getUsername()}"> </span>
+        <span class="nav-link text-white">&nbsp;with roles:&nbsp;</span>
+        <span class="nav-link text-white" th:each="role: ${currentUser.getRoles()}">
+                    <span th:utext="${role.getName().substring(5) + '&nbsp;'} "></span>
+                    </span>
+    </div>
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="btn btn-outline-light me-2" th:href="@{/login}" role="button">Logout</a></li>
+    </ul>
+</header>
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="user-page-tab" role="tablist"
+         aria-orientation="vertical">
+        <button class="nav-link active" id="user-tab" data-bs-toggle="pill"
+                data-bs-target="#user" type="button" role="tab" aria-controls="user"
+                aria-selected="true" style="width: 150px">User
+        </button>
+    </div>
+    <div class="tab-content w-75" id="user-page-tabContent">
+        <div class="tab-pane fade show active bg-light" id="user" role="tabpanel"
+             aria-labelledby="user-tab" tabindex="0">
+            <h2 class="p-3">Страница с информацией о пользователе</h2>
+            <hr>
+            <h5 class="p-3">Ваши данные:</h5>
+            <div class="table-responsive p-3">
+                <table class="table align-middle table-striped table-borderless table-sm text-start bg-white">
+                    <thead>
+                    <tr class="fs-6 fw-bold">
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Возраст</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Роли</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="fs-6 fw-normal">
+                        <td th:utext="${currentUser.getId()}"></td>
+                        <td th:utext="${currentUser.getFirst_name()}"></td>
+                        <td th:utext="${currentUser.getLast_name()}"></td>
+                        <td th:utext="${currentUser.getAge()}"></td>
+                        <td th:utext="${currentUser.getUsername()}"></td>
+                        <td>
+                            <label th:each="role: ${currentUser.getRoles()}">
+                                <label th:utext="${role.getName().substring(5) + '&nbsp;'} "></label>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
